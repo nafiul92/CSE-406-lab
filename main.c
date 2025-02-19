@@ -1,12 +1,26 @@
 #include <stdio.h>
 
 int main() {
-    int n = 4, i, j, temp;
-    int p[] = {1, 2, 3, 4};
-    int at[] = {0, 1, 2, 3};
-    int bt[] = {4, 3, 1, 2};
-    int ct[4], tat[4], wt[4];
+    int n, i, j, temp;
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+    int p[n], at[n], bt[n], ct[n], tat[n], wt[n];
     float totalTAT = 0, totalWT = 0;
+
+    printf("Enter process IDs:\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d", &p[i]);
+    }
+
+    printf("Enter arrival times (AT):\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d", &at[i]);
+    }
+
+    printf("Enter burst times (BT):\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d", &bt[i]);
+    }
 
     for(i = 0; i < n - 1; i++) {
         for(j = 0; j < n - i - 1; j++) {
@@ -14,9 +28,11 @@ int main() {
                 temp = at[j];
                 at[j] = at[j+1];
                 at[j+1] = temp;
+
                 temp = bt[j];
                 bt[j] = bt[j+1];
                 bt[j+1] = temp;
+
                 temp = p[j];
                 p[j] = p[j+1];
                 p[j+1] = temp;
@@ -37,7 +53,7 @@ int main() {
         wt[i] = tat[i] - bt[i];
     }
 
-    printf("P\tAT\tBT\tCT\tTAT\tWT\n");
+    printf("\nP\tAT\tBT\tCT\tTAT\tWT\n");
     for(i = 0; i < n; i++) {
         printf("P%d\t%d\t%d\t%d\t%d\t%d\n", p[i], at[i], bt[i], ct[i], tat[i], wt[i]);
         totalTAT += tat[i];
